@@ -54,14 +54,9 @@ app.get('/api/quote', async (req, res) => {
 
     try {
         if (quotes.length < 100) {
-            const newQuote = await generateUniqueQuote() 
-            res.status(200).json({text: {newQuote}})
-            console.log(newQuote, "nueva frase")
-            // res.status(200).json(quotes)
-        } else {
-            res.status(400).json({msj: "no hay mas quotes"})
-        }
-
+            await generateUniqueQuote() 
+        } 
+        res.status(200).json(quotes)
     } catch (error) {
         res.status(500).json({error : "It is not possible to generate quote"})
     }
