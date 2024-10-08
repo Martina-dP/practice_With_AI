@@ -8,17 +8,19 @@ const port = 3001;
 
 app.use(cors()); 
 
-const quotes = [ {id: 1, text:"soy texto1", },
-    {id: 2, text:"soy texto2", },
-    {id: 3, text:"soy texto3", },
-    {id: 4, text:"soy texto4", },
-    {id: 5, text:"soy texto5", },
-    {id: 6, text:"soy texto6", },
-    {id: 7, text:"soy texto7", },
-    {id: 8, text:"soy texto8", },
-    {id: 9, text:"soy texto9", },
-    {id: 10, text:"Click the button to get a random phrase", }
-]; 
+// const quotes = [ {id: 1, text:"soy texto1", },
+//     {id: 2, text:"soy texto2", },
+//     {id: 3, text:"soy texto3", },
+//     {id: 4, text:"soy texto4", },
+//     {id: 5, text:"soy texto5", },
+//     {id: 6, text:"soy texto6", },
+//     {id: 7, text:"soy texto7", },
+//     {id: 8, text:"soy texto8", },
+//     {id: 9, text:"soy texto9", },
+//     {id: 10, text:"Click the button to get a random phrase", }
+// ]; 
+
+const quotes = []; 
 
 const openai = new OpenAI({
     apiKey: process.env.API_KEY,
@@ -29,14 +31,14 @@ async function generateUniqueQuote() {
 
     try {
         const response = await openai.chat.completions.create({
-            model: 'gpt-4o-mini', 
+            model: 'gpt-3.5-turbo', 
             messages: [{ role: 'user', content: prompt }],
         });
 
         const quote = response.choices[0].message.content.trim();
 
-        if (!quotes.includes(quote)) {2|
-            quotes.push(quote)
+        if (!quotes.some(s => s.text === quote)) {
+            quotes.push({text : quote})
             console.log("generated quote:", quote)
             return quote
         }
@@ -53,7 +55,9 @@ app.get('/api/quote', async (req, res) => {
     try {
         if (quotes.length < 100) {
             const newQuote = await generateUniqueQuote() 
-            res.status(200).json(quotes)
+            res.status(200).json({text: {newQuote}})
+            console.log(newQuote, "nueva frase")
+            // res.status(200).json(quotes)
         } else {
             res.status(400).json({msj: "no hay mas quotes"})
         }
