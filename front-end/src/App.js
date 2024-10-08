@@ -1,6 +1,5 @@
-import './App.css';
-
 import React, { useEffect, useState } from 'react';
+import style from "./App.module.css"
 
 function App() {
 
@@ -8,6 +7,8 @@ function App() {
   const [allQuotes, setAllQuotes] = useState([]);
   const [shownQuotes, setShownQuotes] = useState([]);
   const [allQuotesDisplayed, setAllQuotesDisplayed] = useState(false)
+  const [openRecordQuotes, setOpenRecordQuotes] = useState(false)
+  const [last16Quotes, setLast16Quotes] = useState([])
 
   const fetchQuote = async () => {
     try {
@@ -30,6 +31,7 @@ function App() {
   const saveShownQuotes = (text) => {
     const updateShownQuotes = [...shownQuotes, text]
     setShownQuotes(updateShownQuotes)
+    setLast16Quotes(updateShownQuotes.slice(-16))
     localStorage.setItem("shownQuotes", JSON.stringify(updateShownQuotes))
   }
 
@@ -51,22 +53,45 @@ function App() {
       setQuote(newQuote)
       saveShownQuotes(newQuote.text)
       setAllQuotesDisplayed(false)
-  }
+    }
   }
 
   useEffect(() => {
     fetchQuote()
     loadQuotes()
+    localStorage.clear()
+    setLast16Quotes([])
   }, [])
 
+  const openRecord = () => {
+    setOpenRecordQuotes(!openRecordQuotes)
+  }
+
   return (
-    <div className="App" style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>Random Quote Generator</h1>
-      {allQuotesDisplayed ? 
-        <p>There are no more quotes</p> : (
-          quote ? <p>{quote.text}</p> : <p>Haz clic en el botón para mostrar una cita.</p>
+    <div className={style.all}>
+      <div className={style.currentQuote}>
+        <h1 className={style.title}>Random Quote Generator</h1>
+        {allQuotesDisplayed ? 
+          <p className={style.text} >There are no more quotes</p> : ( quote ? 
+              <p className={style.text}> " {quote.text} " </p> 
+              : <p className={style.text} >Click the button to get a random quote</p>
+          )}
+        <button className={style.BTN} onClick={randomQuote}> 
+          {quote ? "Get another quote" : "Get quote"} 
+        </button>
+      </div>
+      <div className={style.recorQuotes}>
+        <button className={style.BTN} onClick={openRecord}> 
+          {openRecordQuotes ? "Close quote history" : "Open quote history"} 
+        </button>
+        {openRecordQuotes && (
+          <div>
+              {last16Quotes.map((text, index) => (
+                <p className={style.quotes} key={index}>" {text} "</p>
+              ))}
+          </div>
         )}
-      <button onClick={randomQuote}> {quote ? "Get another quote" : "Get quote"} </button>
+      </div>
     </div>
   );
 }

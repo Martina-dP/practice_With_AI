@@ -17,7 +17,7 @@ const quotes = [ {id: 1, text:"soy texto1", },
     {id: 7, text:"soy texto7", },
     {id: 8, text:"soy texto8", },
     {id: 9, text:"soy texto9", },
-    {id: 10, text:"soy texto10", }
+    {id: 10, text:"Click the button to get a random phrase", }
 ]; 
 
 const openai = new OpenAI({

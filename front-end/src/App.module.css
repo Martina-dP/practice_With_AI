@@ -1,0 +1,102 @@
+* { 
+  margin: 0; 
+  padding: 0;
+}
+
+body { 
+  height: 100%; 
+} 
+
+.all { 
+  display: flex; 
+  height: 100vh; 
+  flex-direction: row; 
+} 
+
+.currentQuote { 
+  background-color: #FCFAEE; 
+  width: 80vw; 
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center; 
+  padding: 1em; 
+} 
+
+.title { 
+  margin-bottom: 1em; 
+  font-size: 2rem; 
+  text-align: center; 
+} 
+
+.text { 
+  margin-bottom: 1.2em; 
+  font-size: 1rem; 
+  text-align: center; 
+} 
+
+.recorQuotes { 
+  background-color: #A5B68D; 
+  width: 20vw; 
+  display: flex; 
+  flex-direction: column; 
+  justify-content: flex-start; 
+  padding: 1em; 
+  box-shadow: -10px 0 15px rgba(0, 0, 0, 0.212); 
+} 
+
+.BTN { 
+  background-color: #da8459cb; 
+  padding: 1em 2em; 
+  margin: 1em auto; 
+  border: none; font-size: .9rem; 
+  display: inline-block; 
+  cursor: pointer; 
+} 
+
+.quotes {
+  display: flex; 
+  flex-direction: column; 
+  justify-content: flex-start; 
+  padding: .3em;
+}
+
+@media (max-width: 768px) { 
+
+  .currentQuote { 
+    width: 100vw;  
+  } 
+
+  .recorQuotes { 
+    width: 100vw; 
+    box-shadow: none; 
+  } 
+
+  .title { 
+    font-size: 1.5rem;  
+  } 
+
+  .text { 
+    font-size: 1rem;
+  } 
+
+  .BTN { 
+    padding: 0.8em 1.5em; 
+    font-size: 0.8rem; 
+  } 
+} 
+
+@media (max-width: 480px) { 
+
+  .title { 
+    font-size: 1.2rem; 
+  } 
+
+  .text { 
+    font-size: 0.9rem; 
+  } 
+
+  .BTN { 
+    padding: 0.6em 1.2em; font-size: 0.7rem; 
+  }
+}
