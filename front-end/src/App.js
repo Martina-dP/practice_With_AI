@@ -8,7 +8,7 @@ function App() {
   const [shownQuotes, setShownQuotes] = useState([]);
   const [allQuotesDisplayed, setAllQuotesDisplayed] = useState(false)
   const [openRecordQuotes, setOpenRecordQuotes] = useState(false)
-  const [last16Quotes, setLast16Quotes] = useState([])
+  const [last4Quotes, setLast4Quotes] = useState([])
 
   const fetchQuote = async () => {
     try {
@@ -31,7 +31,7 @@ function App() {
   const saveShownQuotes = (text) => {
     const updateShownQuotes = [...shownQuotes, text]
     setShownQuotes(updateShownQuotes)
-    setLast16Quotes(updateShownQuotes.slice(-16))
+    setLast4Quotes(updateShownQuotes.slice(-4))
     sessionStorage.setItem("shownQuotes", JSON.stringify(updateShownQuotes))
   }
 
@@ -56,7 +56,7 @@ function App() {
   const requestsQuotes = async () => {
     await fetchQuote()
     loadQuotes()
-    setLast16Quotes([])
+    setLast4Quotes([])
   }
 
   useEffect(() => {
@@ -87,7 +87,7 @@ function App() {
         </button>
         {openRecordQuotes && (
           <div>
-              {last16Quotes.map((text, index) => (
+              {last4Quotes.map((text, index) => (
                 <p className={style.quotes} key={index}>" {text} "</p>
               ))}
           </div>
