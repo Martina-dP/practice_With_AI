@@ -13,4 +13,4 @@ Javascript as language.
 The backend is built with Node and express; using dotenv, nodemon, cors, and openAI.
 The front end is made with react.
 
-I use local storage to locally save the quotes viewed and to be able to create the history with the last 16 generated.
+I use local storage to locally save the quotes viewed and to be able to create the history with the last 4 generated.
